@@ -99,12 +99,19 @@
 
 
 
-body {
+body, input {
   margin: 0;
   padding: 0;
   font-size: 125%;
-  font-family: 'Segoe UI';
+  font-family: 'Computer Modern Serif';
 }
+
+.canvas-cont {
+  overflow: hidden;
+}
+
+canvas.xy { float: left; }
+canvas.xz { float: right; }
 
 canvas {
   float: left;
@@ -133,4 +140,96 @@ a:hover {
 h1 {
   font-size: 1.5em;
   margin: 1em 0 .25em;
+}
+
+article {
+  font-size: 1.125em;
+  line-height: 1.5;
+  margin: 0 auto;
+  width: 50em;
+  clear: both;
+  overflow: hidden;
+  padding: 2em 0 0;
+}
+
+.row {
+  margin-left: -4em;
+}
+
+.col {
+  padding-left: 4em;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+}
+
+.large {
+  font-size: 1.25em;
+}
+
+.center {
+  text-align: center;
+}
+
+.sans {
+  font-family: 'Computer Modern Sans';
+  font-size: .875em;
+}
+
+.padd {
+  margin: 1rem 0;
+}
+
+.eq {
+  font-style: italic;
+}
+
+label {
+  display: block;
+  padding: .5em 0;
+  overflow: hidden;
+}
+
+label div {
+  display: inline-block;
+}
+
+label > * {
+  box-sizing: border-box;
+  float: left;
+}
+
+label .name {
+  width: 42.5%;
+  margin-right: 5%;
+}
+
+label input {
+  width: 27.5%;
+  margin-right: 2.5%;
+}
+
+label .unit {
+  width: 22.5%;
+  float: left;
+}
+
+input {
+  font-size: .75em;
+  font-family: 'Computer Modern Sans';
+  border: thin solid #eee;
+  border-radius: 2px;
+  padding: .5em;
+  transition: all .3s ease;
+  display: inline-block;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2979FF;
+}
+
+.result {
+  clear: both;
+  margin: 0 0 2em;
 }

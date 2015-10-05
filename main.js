@@ -1,9 +1,9 @@
 function main () {
+  var $ = document.querySelector.bind(document);
 
-  screenW = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-  screenH = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
-
-  canvasW = screenW > 500 ? screenW/2 : screenW;
+  var screenW = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+    , screenH = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
+    , canvasW = screenW > 500 ? screenW/2 - 10 : screenW;
 
   var xy = {
     width: canvasW,
@@ -15,20 +15,18 @@ function main () {
   var xz = xy;
 
   var coilOpts = {
-    w: 150,
-    l: 150,
+    w: 100,
+    l: 100,
     lead: 30
   }
 
   var magnetOpts = {
-    w: coilOpts.w,
-    h: coilOpts.l,
     l: 70,
     tesla: 2
   }
 
   var tOpts = {
-    omega: Math.PI
+    omega: .5
   }
 
 
@@ -36,30 +34,40 @@ function main () {
   var Magnet = function( p, color, t ) {
     // p is 3D coordinate of center of magnet
     // example [0, 0, 0]
-    var o = magnetOpts;
-    this.faces = [
-      // Top face represented by a set of lines
-      [
-        [p[0] + o.l/2, p[1] + o.w/2, -p[2] - o.h/2 ],
-        [p[0] + o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
-        [p[0] - o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
-        [p[0] - o.l/2, p[1] + o.w/2, -p[2] - o.h/2 ], 
-        [p[0] + o.l/2, p[1] + o.w/2, -p[2] - o.h/2 ]
-      ],
-      // Front face
-      [
-        [p[0] + o.l/2, p[1] - o.w/2, +p[2] + o.h/2 ],
-        [p[0] + o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
-        [p[0] - o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
-        [p[0] - o.l/2, p[1] - o.w/2, +p[2] + o.h/2 ], 
-        [p[0] + o.l/2, p[1] - o.w/2, +p[2] + o.h/2 ]
-      ],
-    ]
-    this.fillStyle = color
+    var o = magnetOpts
+      , me = this
+    
     this.text = {
       content: t,
       pos: p
     }
+
+    this.update = function(p) {
+      o.w = coilOpts.w;
+      o.h = coilOpts.l;
+      me.faces = [
+        // Top face represented by a set of lines
+        [
+          [p[0] + o.l/2, p[1] + o.w/2, -p[2] - o.h/2 ],
+          [p[0] + o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
+          [p[0] - o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
+          [p[0] - o.l/2, p[1] + o.w/2, -p[2] - o.h/2 ], 
+          [p[0] + o.l/2, p[1] + o.w/2, -p[2] - o.h/2 ]
+        ],
+        // Front face
+        [
+          [p[0] + o.l/2, p[1] - o.w/2, +p[2] + o.h/2 ],
+          [p[0] + o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
+          [p[0] - o.l/2, p[1] - o.w/2, -p[2] - o.h/2 ],
+          [p[0] - o.l/2, p[1] - o.w/2, +p[2] + o.h/2 ], 
+          [p[0] + o.l/2, p[1] - o.w/2, +p[2] + o.h/2 ]
+        ],
+      ]
+
+      this.text.pos = p;
+    }
+    this.update(p);
+    this.fillStyle = color
   }
 
   var nMagnet = new Magnet([-coilOpts.l/2 - magnetOpts.l/2 - 20, 0, 0], '#FF5252', 'N')
@@ -170,7 +178,7 @@ function main () {
   //
   // XY view
   //
-  var canvasXY = document.querySelector('canvas.xy')
+  var canvasXY = $('canvas.xy')
     , ctxXY = canvasXY.getContext('2d')
     
   canvasXY.width = xy.width
@@ -184,7 +192,7 @@ function main () {
   //
   // XZ view
   //
-  var canvasXZ = document.querySelector('canvas.xz')
+  var canvasXZ = $('canvas.xz')
     , ctxXZ = canvasXZ.getContext('2d')
 
   canvasXZ.height = xz.height;
@@ -201,20 +209,78 @@ function main () {
   var t = 0;
 
   function anim () {
-    // Need to remove only magnet
-    // console.log(coil.rect[0][0]);
-    ctxXY.clearRect(cA(coil.rect[0][0]) - 1, cB(coil.rect[0][1]) - 1, coilOpts.w + 2, coilOpts.l + coilOpts.lead + 2 )
-    ctxXZ.clearRect(cA(coil.rect[0][0]) - 1, cB(coil.rect[0][2]) - 1, coilOpts.w + 2, coilOpts.l + 2 );
+    ctxXY.clearRect(0, 0, xy.width, xy.height)
+    ctxXZ.clearRect(0, 0, xz.width, xz.height)
     
     coil.update(t);
+    nMagnet.update([-coilOpts.l/2 - magnetOpts.l/2 - 20, 0, 0]);
+    sMagnet.update([+coilOpts.l/2 + magnetOpts.l/2 + 20, 0, 0]);
     t += 1/60;
 
     plot( coil, ctxXY, 0, 1 )
     plot( coil, ctxXZ, 0, 2 )
 
+    plot( nMagnet, ctxXZ, 0, 2 )
+    plot( sMagnet, ctxXZ, 0, 2 )
+
+    plot( nMagnet, ctxXY, 0, 1 )
+    plot( sMagnet, ctxXY, 0, 1 )
+
     window.requestAnimationFrame(anim);
   }
   window.requestAnimationFrame( anim );
+
+  var wInp = $('input.w')
+    , lInp = $('input.l')
+    , bInp = $('input.b')
+    , omegaInp = $('input.omega')
+    , inputs = [wInp, lInp, bInp, omegaInp]
+    , maxH = canvasXZ.height - 40
+
+  function calcProduct () {
+    var product = (coilOpts.w * coilOpts.l)/10000 * magnetOpts.tesla * tOpts.omega;
+    $(".product").innerHTML = product;
+    $(".res-omega-prod").innerHTML = tOpts.omega;
+  }
+
+  function showRes () {
+    $('.res-b').innerHTML = magnetOpts.tesla;
+    $('.res-l').innerHTML = coilOpts.l/100;
+    $('.res-w').innerHTML = coilOpts.w/100;
+    $('.res-omega').innerHTML = tOpts.omega;
+    $('.res-omaga-sin').innerHTML = tOpts.omega
+  }
+
+  function changeInp () {
+    var inp = this
+      , val = parseFloat(inp.value)
+    if ( inp.className.indexOf('w') !== -1 ) {
+      console.log(val, maxH);
+      val = val * 100 > maxH ? maxH / 100 : val;
+      coilOpts.w = val * 100 || 150
+      inp.value = val;
+    }
+    else if ( inp.className.indexOf('l') !== -1 ) {
+      console.log(val, maxH);
+      val = val * 100 > maxH ? maxH/100 : val;
+      coilOpts.l = val * 100 || 150
+      inp.value = val;
+    }
+    else if ( inp.className.indexOf('b') !== -1 ) {
+      magnetOpts.tesla = val || 2
+    }
+    else if ( inp.className.indexOf('omega') !== -1 ) {
+      tOpts.omega = val || 0.5
+    }
+    calcProduct();
+    showRes();
+  }
+
+  inputs.map(function(input) {
+    input.addEventListener('change', changeInp);
+  })
+  
 }
+
 
 window.addEventListener('DOMContentLoaded', main);

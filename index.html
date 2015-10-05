@@ -4,13 +4,65 @@
   <meta charset="UTF-8">
   <title>ACgen - AC Generator Simulation</title>
   <link rel="stylesheet" href="main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <h1>Alternating Current Generator Simulator</h1>
   <h2>By <a href="http://namanyayg.com/" rel="nofollow">Namanyay Goel</a> &middot; <a href="http://github.com/namanyayg">Github</a></h2>
-  <canvas class="xy"></canvas>
-  <canvas class="xz"></canvas>
-  
+  <div class="canvas-cont">
+    <div class="c-xy">
+      <canvas class="xy"></canvas>
+    </div>
+    <div class="c-xz">
+      <canvas class="xz"></canvas>
+    </div>
+  </div>
+  <article>
+    <div class="result">
+      <div class="large center">&rArr;&nbsp;<span class="eq">ε = <span class="res-b">2</span> &middot; (<span class="res-l">1</span> &middot; <span class="res-w">1</span>) &middot; <span class="res-omega">0.5</span> &middot; sin(<span class="res-omega-sin">0.5</span>t)</span></div>
+
+      <div class="large center">&rArr;&nbsp;<span class="eq">ε = <span class="product">1</span> &middot; sin(<span class="res-omega-prod">0.5</span>t)</span></div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="large center">&nbsp;<span class="eq">ε = BAωsin(ωt)</span></div>
+        <div class="padd">
+          &nbsp;<span class="eq">ε</span> &rarr; Generated electromotive force (EMF, Volts)<br/>
+          <span class="eq">B</span> &rarr; Magnetic Field (Tesla)<br>
+          <span class="eq">A</span> &rarr; length of coil &middot; width of coil (m<sup>2</sup>)<br>
+          <span class="eq">ω</span> &rarr; Angular velocity (rad/s)
+        </div>
+        <div class="center sans">
+        The above describe the motion and generation of an ideal AC generator.
+        </div>
+      </div>
+      <div class="col">
+        <div class="options">
+          <label>
+            <div class="name">Length of coil: </div>
+            <input type="text" class="l" value="1">
+            <div class="unit eq">m</div>
+          </label>
+          <label>
+            <div class="name">Width of coil: </div>
+            <input type="text" class="w" value="1">
+            <div class="unit eq">m</div>
+          </label>
+          <label>
+            <div class="name">B (Magnetic field): </div> 
+            <input type="text" class="b" value="2">
+            <div class="unit eq">T</div>
+          </label>
+          <label>
+            <div class="name"><span class="eq">ω</span> (Angular velocity): </div>
+            <input type="text" class="omega" value="0.5">
+            <div class="unit eq">rad/s</div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </article>
 
   <script src="main.js"></script>
 </body>

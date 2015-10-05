@@ -110,12 +110,31 @@ body, input {
   overflow: hidden;
 }
 
-canvas.xy { float: left; }
-canvas.xz { float: right; }
-
-canvas {
+.c {
+  overflow: hidden;
   float: left;
+  font-family: 'Computer Modern Sans';
+  position: relative;
 }
+
+.c-xz {
+  float: right;
+}
+
+.meta {
+  position: absolute;
+  bottom: 0;
+  left: 2em;
+  right: 2em;
+  background: rgba(0, 0, 0, .02);
+  padding: .5em;
+  font-size: .75em;
+  text-align: center;
+  z-index: 200;
+}
+
+
+
 
 h1, h2 {
   font-family: 'Computer Modern Serif', Georgia;

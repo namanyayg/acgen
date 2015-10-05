@@ -3,7 +3,7 @@ function main () {
 
   var screenW = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
     , screenH = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
-    , canvasW = screenW > 500 ? screenW/2 - 10 : screenW;
+    , canvasW = screenW > 720 ? screenW/2 - 10 : screenW;
 
   var xy = {
     width: canvasW,
@@ -238,7 +238,7 @@ function main () {
     , maxH = canvasXZ.height - 40
 
   function calcProduct () {
-    var product = (coilOpts.w * coilOpts.l)/10000 * magnetOpts.tesla * tOpts.omega;
+    var product = Math.round((coilOpts.w * coilOpts.l)/10000 * magnetOpts.tesla * tOpts.omega * 100)/100;
     $(".product").innerHTML = product;
     $(".res-omega-prod").innerHTML = tOpts.omega;
   }

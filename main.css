@@ -104,6 +104,7 @@ body, input {
   padding: 0;
   font-size: 125%;
   font-family: 'Computer Modern Serif';
+  color: #263238;
 }
 
 .canvas-cont {
@@ -165,7 +166,8 @@ article {
   font-size: 1.125em;
   line-height: 1.5;
   margin: 0 auto;
-  width: 50em;
+  max-width: 50em;
+  width: 95%;
   clear: both;
   overflow: hidden;
   padding: 2em 0 0;
@@ -251,4 +253,21 @@ input:focus {
 .result {
   clear: both;
   margin: 0 0 2em;
+}
+
+.colophon {
+  background: #ECEFF1;
+  margin: 6em 0 0;
+  padding: 2em;
+  text-align: center;
+  color: #546E7A;
+  font-size: .75em;
+}
+
+@media (max-width: 60em) {
+  .col { width: 100%; margin-bottom: 2em; }
+}
+
+@media ( max-width: 45em) {
+  .c { width: 100%; }
 }

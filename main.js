@@ -248,7 +248,7 @@ function main () {
     $('.res-l').innerHTML = coilOpts.l/100;
     $('.res-w').innerHTML = coilOpts.w/100;
     $('.res-omega').innerHTML = tOpts.omega;
-    $('.res-omaga-sin').innerHTML = tOpts.omega
+    $('.res-omega-sin').innerHTML = tOpts.omega;
   }
 
   function changeInp () {

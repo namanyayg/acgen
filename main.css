@@ -271,3 +271,28 @@ input:focus {
 @media ( max-width: 45em) {
   .c { width: 100%; }
 }
+
+
+.app {
+  padding-bottom: 20px;
+}
+
+.learn {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.learn .yt-video {
+  width: 640px;
+  margin: 0 auto;
+}
+
+.learn .yt-video iframe {
+  width: 100%;
+}
+
+@media ( max-width: 45em) {
+  .learn .yt-video {
+    width: 90%;
+  }
+}
